@@ -51,6 +51,8 @@ This way we don't check for errors that wont exist. If errors are found (The err
                 email_input.parentElement.classList.add('incorrect');
             } else {
                 localStorage.setItem(uniqueKey, json);
+                window.location.href = 'login.html';
+                e.preventDefault();
             }
         } else {
             const userEmail = email_input.value;
@@ -62,7 +64,7 @@ This way we don't check for errors that wont exist. If errors are found (The err
                 const storedObj = JSON.parse(storedData);
 
                 if (storedObj.password === userPassword) {
-                    window.location.href = 'menu.html';
+                    window.location.href = '../main/menu.html';
                     e.preventDefault();
                 } else {
                     e.preventDefault();
@@ -108,6 +110,14 @@ function getRegisterFormErrors(username, email, password, repeatPassword){
     if (password === '' || password == null){
         password_input.parentElement.classList.add('incorrect')
         errors.push('Missing Password')
+    }
+    if (username.length > 20){
+        errors.push('Username max 20 Characters')
+        password_input.parentElement.classList.add('incorrect')
+    }
+    if (password.length > 20){
+        errors.push('Password max 20 Characters')
+        password_input.parentElement.classList.add('incorrect')
     }
     if (password.length < 8){
         errors.push('Password needs 8 characters')
