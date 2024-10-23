@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../CSS/Main/leaderboard.css">
+    <script src="../JS/leaderboard.js"></script>
     <title>Leaderboard</title>
 </head>
 <body>
@@ -28,5 +29,30 @@
             <a href="profile.html">Profile</a>
         </div>
     </nav>
+
+    <div class="leaderboard-container">
+        <h1>Leaderboard</h1>
+
+        <!-- Leaderboard for each maze -->
+        <div id="maze1-leaderboard" class="leaderboard">
+            <h2>Maze 1 Times</h2>
+            <ul id="maze1-scores"></ul>
+        </div>
+
+        <div id="maze2-leaderboard" class="leaderboard">
+            <h2>Maze 2 Times</h2>
+            <ul id="maze2-scores"></ul>
+        </div>
+
+        <div id="maze3-leaderboard" class="leaderboard">
+            <h2>Maze 3 Times</h2>
+            <ul id="maze3-scores"></ul>
+        </div>
+
+        <div id="total-time-leaderboard" class="leaderboard">
+            <h2>Total Times</h2>
+            <ul id="total-scores"></ul>
+        </div>
+    </div>
 </body>
 </html>

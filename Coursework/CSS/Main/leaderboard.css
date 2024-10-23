@@ -4,7 +4,7 @@
 :root {
     --accent-color: #8a817c;
     --base-color: #f4f3ee;
-    --basedark-color:#242424;
+    --basedark-color: #242424;
     --text-color: #463f3a;
     --input-color: #f4f3ee;
 }
@@ -13,11 +13,14 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html {
     font-size: 1.2rem;
     font-family: "Sometype Mono", 'Courier New', Courier, monospace;
+    background-color: var(--basedark-color); /* Consistent background */
+    color: var(--base-color); /* Text color */
 }
 
 /* BACKGROUND IMAGE STYLING */
@@ -69,6 +72,38 @@ nav svg {
     fill: var(--base-color);
 }
 
+/* LEADERBOARDS STYLING */
+.leaderboard-container {
+    max-width: 800px;
+    margin: 80px auto; /* Centered leaderboard with margin */
+    padding: 40px; /* Increased padding */
+    background-color: var(--basedark-color); /* Dark background for leaderboard */
+    border: 2px solid var(--accent-color); /* Border using accent color */
+    border-radius: 8px; 
+    box-shadow: 0px 0px 10px var(--accent-color); /* Subtle shadow */
+    text-align: center; /* Center content */
+}
+
+.leaderboard h2 {
+    margin-top: 20px;
+    color: var(--accent-color); /* Accent color for heading */
+    font-size: 36px;
+}
+
+.leaderboard ul {
+    list-style: none;
+    padding: 0;
+    color: var(--base-color); /* Use base color for text */
+}
+
+.leaderboard li {
+    margin: 5px 0;
+    padding: 10px;
+    background-color: var(--base-color); /* Light background for items */
+    color: var(--text-color); /* Darker text for contrast */
+    border-radius: 4px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); /* Slight shadow to make it pop */
+}
 
 /* INTERACTIONS & MEDIA QUERY */
 #sidebar-active {
@@ -118,9 +153,4 @@ nav svg {
         left: 0;
         z-index: 9;
     }
-
-
 }
-
-
-

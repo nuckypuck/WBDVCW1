@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../CSS/Main/menu.css">
+    <link rel="stylesheet" href="../CSS/main/menu.css">
+    <script src="../JS/game.js"></script>
     <title>Home</title>
 </head>
 <body>
-    <div class="backgroundimg">
-        <img src="../IMG/MenuIMGs/bgmaze.jpg" alt="Background Image">
-    </div>
     <nav>
         <input type="checkbox" id="sidebar-active">
         <label for="sidebar-active" class="open-sidebar-button">
@@ -28,5 +26,20 @@
             <a href="profile.html">Profile</a>
         </div>
     </nav>
+
+    <main>
+        <canvas id="game" width="400" height="400"></canvas>
+        <div class="controls-container">
+        <h2>Controls</h2>
+        <ul>
+            <li>Move Up: W</li>
+            <li>Move Down: A</li>
+            <li>Move Left: S</li>
+            <li>Move Right: D</li>
+            <li>Pause Game: P</li>
+        </ul>
+    </div>
+    </main>
 </body>
 </html>
+

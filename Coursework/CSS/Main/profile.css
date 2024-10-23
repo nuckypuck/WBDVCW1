@@ -4,7 +4,7 @@
 :root {
     --accent-color: #8a817c;
     --base-color: #f4f3ee;
-    --basedark-color:#242424;
+    --basedark-color: #242424;
     --text-color: #463f3a;
     --input-color: #f4f3ee;
 }
@@ -13,11 +13,14 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html {
     font-size: 1.2rem;
     font-family: "Sometype Mono", 'Courier New', Courier, monospace;
+    background-color: var(--basedark-color); /* Applying base dark background */
+    color: var(--base-color); /* Setting the default text color */
 }
 
 /* BACKGROUND IMAGE STYLING */
@@ -69,6 +72,36 @@ nav svg {
     fill: var(--base-color);
 }
 
+/* PROFILE CARD STYLING */
+.profile-container {
+    max-width: 600px;
+    margin: 80px auto; /* Centered with some margin from top */
+    padding: 40px; /* Increased padding for more space */
+    border: 2px solid var(--accent-color); /* Consistent border color */
+    border-radius: 8px; 
+    background-color: var(--basedark-color); /* Dark background for the card */
+    color: var(--base-color); /* Light text color for contrast */
+    box-shadow: 0px 0px 10px var(--accent-color); /* Matching box-shadow */
+    text-align: center; /* Centering text */
+}
+
+.profile-container h1 {
+    font-size: 36px;
+    color: var(--accent-color); /* Accent color for heading */
+    margin-bottom: 20px;
+}
+
+.maze-scores {
+    margin-top: 20px;
+}
+
+.maze-score-item {
+    margin-bottom: 10px;
+    background-color: var(--base-color); /* Light background for contrast */
+    color: var(--text-color); /* Text color inside the maze score */
+    padding: 10px;
+    border-radius: 4px;
+}
 
 /* INTERACTIONS & MEDIA QUERY */
 #sidebar-active {
@@ -118,7 +151,4 @@ nav svg {
         left: 0;
         z-index: 9;
     }
-
-
 }
-
