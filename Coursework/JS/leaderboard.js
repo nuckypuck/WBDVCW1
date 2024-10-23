@@ -59,8 +59,8 @@ window.onload = function() {
     const leaderboardData = getLeaderboardData();
 
     // Display top 3 scores for each maze and total time
-    displayLeaderboard('maze1-scores', leaderboardData.maze1);
-    displayLeaderboard('maze2-scores', leaderboardData.maze2);
-    displayLeaderboard('maze3-scores', leaderboardData.maze3);
+    displayLeaderboard('mayz1-scores', leaderboardData.maze1);
+    displayLeaderboard('mayz2-scores', leaderboardData.maze2);
+    displayLeaderboard('mayz3-scores', leaderboardData.maze3);
     displayLeaderboard('total-scores', leaderboardData.total);
 };
