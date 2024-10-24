@@ -92,6 +92,7 @@ var mapW = 20, mapH = 20;
 var currentSecond = 0, frameCount = 0, framesLastSecond = 0, lastFrameTime = 0;
 var tileset = null, tilesetURL = "../IMG/GameIMGs/tileset.png", tilesetLoaded = false;
 var isPaused = false; 
+var pauseStartTime = 0; // Tracks when the game was pausedvar pauseStartTime = 0; // Tracks when the game was paused
 var gameTime = 0;
 
 // Maze time variables
@@ -119,13 +120,19 @@ window.onload = function() {
     });
 
     window.addEventListener("keyup", function(e) {
-        if ([65, 68, 83, 87].includes(e.keyCode)) {
-            keysDown[e.keyCode] = false;
+    if ([65, 68, 83, 87].includes(e.keyCode)) {
+        keysDown[e.keyCode] = false;
+    }
+    if (e.keyCode == 80) { 
+        isPaused = !isPaused;
+        if (isPaused) {
+            pauseStartTime = Date.now(); // Record the time when the game is paused
+        } else {
+            // Adjust mazeStartTime by the duration of the pause
+            mazeStartTime += Date.now() - pauseStartTime;
         }
-        if (e.keyCode == 80) { 
-            isPaused = !isPaused;
-        }
-    });
+    }
+});
 
     viewport.screen = [document.getElementById('game').width, document.getElementById('game').height];
 
