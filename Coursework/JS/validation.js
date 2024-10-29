@@ -7,7 +7,6 @@ const repeat_password_input = document.getElementById('repeat-password-input')
 const error_message = document.getElementById('error-message')
 const phone_input = document.getElementById('phone-input')
 const phonePattern = /^07\d{3} \d{6}$/; // UK FORMAT 07XXX XXXXXX
-const phoneNumber = phone_input ? phone_input.value : '';
 
 /* UTILITY FUNCTIONS */
 /* Allows the user to see their password */
@@ -68,6 +67,8 @@ form.addEventListener('submit', (e) => {
 /* Register Form Error Checker */
 function getRegisterFormErrors(username, email, password, repeatPassword){
     let errors = []
+
+    const phoneNumber = phone_input ? phone_input.value : '';
 
     if (username === '' || username == null){
         username_input.parentElement.classList.add('incorrect')

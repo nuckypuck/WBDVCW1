@@ -1,8 +1,7 @@
 var ctx = null;
 
-
-// Maze data
-var mazes = [
+// Maze Data
+const mazes = [
     {
         map: [
             // Maze 1 layout
@@ -85,33 +84,58 @@ var mazes = [
     }
 ];
 
-// Initialize necessary variables
-var mapTileData = new TileMap();
-var tileW = 40, tileH = 40;
-var mapW = 20, mapH = 20;
-var currentSecond = 0, frameCount = 0, framesLastSecond = 0, lastFrameTime = 0;
-var tileset = null, tilesetURL = "../IMG/GameIMGs/tileset.png", tilesetLoaded = false;
-var isPaused = false; 
-var pauseStartTime = 0; // Tracks when the game was pausedvar pauseStartTime = 0; // Tracks when the game was paused
-var gameTime = 0;
+// Important Variables
 
-// Maze time variables
-var mazeTimes = [];  // Store times for each maze
-var totalTime = 0;   // Total time for all mazes
-var mazeIndex = 0; 
-var mazeStartTime = 0; 
-var timerStarted = false; 
+// Game & Tile Data
+const mapTileData = new TileMap();  //Represents layout of maze
+const tileW = 40, tileH = 40; //Tile width and height 
+const mapW = 20, mapH = 20; //Amount of tiles in the width and height of the map (20x20)
 
+// Frame rate data
+let currentSecond = 0; // Tracks current second
+let frameCount = 0; // Counts fps 
+let framesLastSecond = 0; // Holds fps count from last second for display
+let lastFrameTime = 0; // Timestamp of last frame
+
+// Tilset image data
+let tileset = null; //Tilset Variable
+const tilesetURL = "../IMG/GameIMGs/tileset.png"; //Tileset Image
+let tilesetLoaded = false; //Flag to indicate loading
+
+// Control Variables
+let isPaused = false; // Flag to indicate pause state
+let pauseStartTime = 0; // Tracks length of game pause
+let gameTime = 0; // Total game time 
+
+// Sound Variables
+const moveSound = new Audio('../Sound/click.mp3'); // Sound file
+let isSoundPlaying = false; // Flag for sound playing
+
+// Maze Timing Variables 
+let mazeTimes = [];  // Array to store individual maze times
+let totalTime = 0;   // Total time for all mazes
+let mazeIndex = 0;   // Current Maze Level
+let mazeStartTime = 0; // Start time for current maze
+let timerStarted = false; // Flag for timer start
+
+// Initialise Canvas 
 window.onload = function() {
     ctx = document.getElementById('game').getContext("2d");
     requestAnimationFrame(drawGame);
     ctx.font = "bold 10pt sans-serif";
 
+    //WASD Listener
     window.addEventListener("keydown", function(e) {
         if ([65, 68, 83, 87].includes(e.keyCode)) {
             keysDown[e.keyCode] = true;
 
-            // Timer starts only when W, A, S, or D keys are pressed
+            // Play the sound on keypress
+            if (!isPaused && !isSoundPlaying) {
+                moveSound.play();
+                isSoundPlaying = true; 
+            }
+
+            // Begins timer (If not already begun)
             if (!timerStarted) {
                 mazeStartTime = Date.now();
                 timerStarted = true;
@@ -119,23 +143,32 @@ window.onload = function() {
         }
     });
 
-    window.addEventListener("keyup", function(e) {
+    // WASD Released Listener
+window.addEventListener("keyup", function(e) {
     if ([65, 68, 83, 87].includes(e.keyCode)) {
         keysDown[e.keyCode] = false;
+        isSoundPlaying = false; // Reset the flag when key is released
     }
-    if (e.keyCode == 80) { 
+    // P Listener (pause)
+    if (e.keyCode == 80) {
         isPaused = !isPaused;
+        
         if (isPaused) {
-            pauseStartTime = Date.now(); // Record the time when the game is paused
+            // Store pause start time
+            pauseStartTime = Date.now();
         } else {
             // Adjust mazeStartTime by the duration of the pause
-            mazeStartTime += Date.now() - pauseStartTime;
+            let pauseDuration = Date.now() - pauseStartTime;
+            mazeStartTime += pauseDuration;
         }
     }
 });
 
+
+    //Initialise viewport with game width and height (set in menu.html)
     viewport.screen = [document.getElementById('game').width, document.getElementById('game').height];
 
+    //Tilset image loading
     tileset = new Image();
     tileset.onerror = function() {
         ctx = null;
@@ -147,61 +180,72 @@ window.onload = function() {
     loadMaze(mazeIndex); 
 };
 
+// Iterate through until all mazes are completed
 function loadMaze(index) {
     if (index >= mazes.length) {
         endGame();
         return;
     }
 
-    const maze = mazes[index];
+    // Retrieve maze data from array
+    let maze = mazes[index];
     mapTileData.buildMapFromData(maze.map, mapW, mapH);
+    //Character Position
     player.placeAt(1, 1);
 
+    // Endpoint handler 
     mapTileData.map[toIndex(maze.endpoint.x, maze.endpoint.y)].eventEnter = function() {
-        var timeSpent = (Date.now() - mazeStartTime) / 1000;
+        let timeSpent = (Date.now() - mazeStartTime) / 1000;
+        //Update Maze Time
         mazeTimes.push(timeSpent);
-        mazeIndex++;  // Move to the next maze
+        // Move to the next maze
+        mazeIndex++;  
         loadMaze(mazeIndex);
     };
 
-    mazeStartTime = Date.now();  // Reset timer for the new maze
-    timerStarted = false; // Ensure the timer starts on key press
+    // Reset timer & Flags
+    mazeStartTime = Date.now();  
+    timerStarted = false; 
     isPaused = false;
 
-    // Check if any W, A, S, D keys are already being held and start the timer
+    // Prevents transition during keypress from not beginning the timer
     if (keysDown[65] || keysDown[68] || keysDown[83] || keysDown[87]) {
         mazeStartTime = Date.now();
         timerStarted = true;
     }
 
-    // Remove the restart button if present
+    // Remove restart button (if it exists)
     const restartButton = document.querySelector('button');
     if (restartButton) {
         restartButton.remove();
     }
-}
+};
 
 
 function endGame() {
+    // Sum Maze Times
     totalTime = mazeTimes.reduce((a, b) => a + b, 0);
+    // Pause game and draw endscreen
     isPaused = true;
     ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
     ctx.fillRect(50, 50, viewport.screen[0] - 100, viewport.screen[1] - 100);
     ctx.fillStyle = "#ffffff";
     ctx.textAlign = "center";
-    ctx.fillText("Game Over!", viewport.screen[0] / 2, 100);
+    ctx.fillText("Mayz Complete!", viewport.screen[0] / 2, 100);
 
+    // Display maze times on endscreen
     mazeTimes.forEach((time, i) => {
         ctx.fillText(`Maze ${i + 1}: ${time.toFixed(2)} seconds`, viewport.screen[0] / 2, 150 + i * 30);
     });
 
+    // Display total time
     ctx.fillText("Total Time: " + totalTime.toFixed(2) + " seconds", viewport.screen[0] / 2, 300);
 
     // Create the restart button
     const restartButton = document.createElement('button');
     restartButton.innerHTML = "Restart";
 
-    // Style the restart button using the provided color scheme
+    // Restart button styling
     restartButton.style.position = "absolute";
     restartButton.style.top = "350px";
     restartButton.style.left = "50%";
@@ -226,71 +270,74 @@ function endGame() {
         restartButton.style.color = "#f4f3ee"; // Return to original text color
     });
 
-    // Button click event to restart the game
+    // Restart button functionality
     restartButton.addEventListener('click', function() {
         mazeIndex = 0;
         mazeTimes = [];
         totalTime = 0;
         loadMaze(mazeIndex);
-        document.body.removeChild(restartButton); // Remove the button after click
+        // Remove button
+        document.body.removeChild(restartButton); 
     });
 
     document.body.appendChild(restartButton);
 
     saveScores();
-}
+};
 
 function saveScores() {
-    const userEmail = sessionStorage.getItem('userEmail'); // Retrieve the email from sessionStorage
+    let userEmail = sessionStorage.getItem('userEmail'); 
     if (userEmail) {
-        const userDataJSON = localStorage.getItem(userEmail);
+        let userDataJSON = localStorage.getItem(userEmail);
         if (userDataJSON) {
-            // Retrieve existing user data from localStorage
-            const userData = JSON.parse(userDataJSON);
-            // Update the user's maze times and total time
-            userData.mazeTimes = mazeTimes; // Update mazeTimes with the latest scores
-            userData.totalTime = totalTime; // Update totalTime with the accumulated time
-            // Save the updated data back to localStorage
+            let userData = JSON.parse(userDataJSON);
+            userData.mazeTimes = mazeTimes; 
+            userData.totalTime = totalTime;
             localStorage.setItem(userEmail, JSON.stringify(userData));
         } else {
             console.error("User data not found");
         }
     }
-}
+};
 
 function drawGame() {
     if (ctx == null) { return; }
     if (!tilesetLoaded) { requestAnimationFrame(drawGame); return; }
 
-    var currentFrameTime = Date.now();
-    var timeElapsed = currentFrameTime - lastFrameTime;
+    // Time tracking
+    let currentFrameTime = Date.now();
+    let timeElapsed = currentFrameTime - lastFrameTime;
     if (!isPaused) {
         gameTime += timeElapsed;
     }
 
-    var sec = Math.floor(Date.now() / 1000);
+    // Frame tracking
+    let sec = Math.floor(Date.now() / 1000);
     if (sec != currentSecond) {
         currentSecond = sec;
         framesLastSecond = frameCount;
         frameCount = 1;
     } else { frameCount++; }
 
+    // Movement process
     if (!player.processMovement(gameTime) && !isPaused) {
-        if (keysDown[87] && player.canMoveUp()) { player.moveUp(gameTime); }
-        else if (keysDown[83] && player.canMoveDown()) { player.moveDown(gameTime); }
-        else if (keysDown[65] && player.canMoveLeft()) { player.moveLeft(gameTime); }
-        else if (keysDown[68] && player.canMoveRight()) { player.moveRight(gameTime); }
+        if (keysDown[87] && player.canMoveUp()) { player.moveUp(gameTime) }
+        else if (keysDown[83] && player.canMoveDown()) { player.moveDown(gameTime) }
+        else if (keysDown[65] && player.canMoveLeft()) { player.moveLeft(gameTime) }
+        else if (keysDown[68] && player.canMoveRight()) { player.moveRight(gameTime) }
     }
 
+    // Update viewport based on position
     viewport.update(player.position[0] + (player.dimensions[0] / 2),
         player.position[1] + (player.dimensions[1] / 2));
 
     ctx.fillStyle = "#000000";
     ctx.fillRect(0, 0, viewport.screen[0], viewport.screen[1]);
 
-    for (var z = 0; z < mapTileData.levels; z++) {
-        for (var y = viewport.startTile[1]; y <= viewport.endTile[1]; ++y) {
-            for (var x = viewport.startTile[0]; x <= viewport.endTile[0]; ++x) {
+    // Iterate through visibile tiles and draw their sprites to them.
+    for (let z = 0; z < mapTileData.levels; z++) {
+        for (let y = viewport.startTile[1]; y <= viewport.endTile[1]; ++y) {
+            for (let x = viewport.startTile[0]; x <= viewport.endTile[0]; ++x) {
                 if (z == 0) {
                     tileTypes[mapTileData.map[toIndex(x, y)].type].sprite.draw(
                         gameTime,
@@ -298,7 +345,7 @@ function drawGame() {
                         viewport.offset[1] + (y * tileH));
                 }
 
-                var o = mapTileData.map[toIndex(x, y)].object;
+                let o = mapTileData.map[toIndex(x, y)].object;
                 if (o != null && objectTypes[o.type].zIndex == z) {
                     var ot = objectTypes[o.type];
 
@@ -317,12 +364,13 @@ function drawGame() {
         }
     }
 
+    // Display FPS & Game Status
     ctx.textAlign = "left";
-
     ctx.fillStyle = "#32CD32";
     ctx.fillText("FPS: " + framesLastSecond, 10, 20);
     ctx.fillText("Game Paused: " + (isPaused ? "Yes" : "No"), 10, 40);
 
+    // Display timer (when ongoing)
     if (!isPaused && timerStarted) {
         var elapsedTime = (Date.now() - mazeStartTime) / 1000;
         ctx.fillText("Time: " + elapsedTime.toFixed(2) + " seconds", 10, 60);
@@ -330,12 +378,14 @@ function drawGame() {
 
     lastFrameTime = currentFrameTime;
     requestAnimationFrame(drawGame);
-}
+};
 
+// Convert 2d Array into index
 function toIndex(x, y) {
     return ((y * mapW) + x);
-}
+};
 
+// Sprite definition 
 function Sprite(data) {
     this.animated = data.length > 1;
     this.frameCount = data.length;
@@ -343,7 +393,7 @@ function Sprite(data) {
     this.loop = true;
 
     if (data.length > 1) {
-        for (var i in data) {
+        for (let i in data) {
             if (typeof data[i].d == 'undefined') {
                 data[i].d = 100;
             }
@@ -356,17 +406,19 @@ function Sprite(data) {
     }
 
     this.frames = data;
-}
+};
+
+// Draw sprite 
 Sprite.prototype.draw = function(t, x, y) {
-    var frameIdx = 0;
+    let frameIdx = 0;
 
     if (!this.loop && this.animated && t >= this.duration) {
         frameIdx = (this.frames.length - 1);
     } else if (this.animated) {
         t = t % this.duration;
-        var totalD = 0;
+        let totalD = 0;
 
-        for (var i in this.frames) {
+        for (let i in this.frames) {
             totalD += this.frames[i].d;
             frameIdx = i;
 
@@ -376,7 +428,7 @@ Sprite.prototype.draw = function(t, x, y) {
         }
     }
 
-    var offset = (typeof this.frames[frameIdx].offset == 'undefined' ? [0, 0] : this.frames[frameIdx].offset);
+    let offset = (typeof this.frames[frameIdx].offset == 'undefined' ? [0, 0] : this.frames[frameIdx].offset);
 
     ctx.drawImage(tileset,
         this.frames[frameIdx].x, this.frames[frameIdx].y,
@@ -385,17 +437,23 @@ Sprite.prototype.draw = function(t, x, y) {
         this.frames[frameIdx].w, this.frames[frameIdx].h);
 };
 
-var objectCollision = {
+// Determine Collisions for objects
+const objectCollision = {
     none: 0,
     solid: 1
 };
-var objectTypes = {};
 
+// Object types (Currently none)
+const objectTypes = {};
+
+// Object Constructor
 function MapObject(nt) {
     this.x = 0;
     this.y = 0;
     this.type = nt;
-}
+};
+
+// Place Object
 MapObject.prototype.placeAt = function(nx, ny) {
     if (mapTileData.map[toIndex(this.x, this.y)].object == this) {
         mapTileData.map[toIndex(this.x, this.y)].object = null;
@@ -407,17 +465,21 @@ MapObject.prototype.placeAt = function(nx, ny) {
     mapTileData.map[toIndex(nx, ny)].object = this;
 };
 
-var floorTypes = {
+// Define floortypes
+const floorTypes = {
     solid: 0,
     path: 1,
     endpoint: 2
 };
-var tileTypes = {
+
+// Define tile properties 
+const tileTypes = {
     0: { colour: "#685b48", floor: floorTypes.solid, sprite: new Sprite([{ x: 0, y: 0, w: 40, h: 40 }]) },
     2: { colour: "#e8bd7a", floor: floorTypes.path, sprite: new Sprite([{ x: 80, y: 0, w: 40, h: 40 }]) },
     3: { colour: "#ff0000", floor: floorTypes.endpoint, sprite: new Sprite([{ x: 120, y: 0, w: 40, h: 40 }]) }
 };
 
+// Tile Constructor (Including roof tiles, unused currently)
 function Tile(tx, ty, tt) {
     this.x = tx;
     this.y = ty;
@@ -426,14 +488,17 @@ function Tile(tx, ty, tt) {
     this.roofType = 0;
     this.eventEnter = null;
     this.object = null;
-}
+};
 
+// Represents the map (Levels can be changed dynamically in future)
 function TileMap() {
     this.map = [];
     this.w = 0;
     this.h = 0;
     this.levels = 4;
-}
+};
+
+// Clear existing & build new map
 TileMap.prototype.buildMapFromData = function(d, w, h) {
     this.w = w;
     this.h = h;
@@ -442,35 +507,41 @@ TileMap.prototype.buildMapFromData = function(d, w, h) {
 
     this.map.length = 0;
 
-    for (var y = 0; y < h; y++) {
-        for (var x = 0; x < w; x++) {
+    for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
             this.map.push(new Tile(x, y, d[((y * w) + x)]));
         }
     }
 
     return true;
 };
+
+// Add roofs to map (unused currently)
 TileMap.prototype.addRoofs = function(roofs) { };
 
-var directions = {
+// Initialise Directions the character can move
+const directions = {
     up: 0,
     right: 1,
     down: 2,
     left: 3
 };
 
-var keysDown = {
+// Set keys to false
+const keysDown = {
     65: false,
     68: false,
     83: false,
     87: false
 };
 
-var viewport = {
+// Define viewport object
+const viewport = {
     screen: [0, 0],
     startTile: [0, 0],
     endTile: [0, 0],
     offset: [0, 0],
+    // Update based on player position & determine tiles that are off screen to cull
     update: function(px, py) {
         this.offset[0] = Math.floor((this.screen[0] / 2) - px);
         this.offset[1] = Math.floor((this.screen[1] / 2) - py);
@@ -491,8 +562,10 @@ var viewport = {
     }
 };
 
-var player = new Character();
+// Initialise player using character class (allows for more players or customisation)
+const player = new Character();
 
+// Character constructor
 function Character() {
     this.tileFrom = [1, 1];
     this.tileTo = [1, 1];
@@ -510,17 +583,21 @@ function Character() {
     this.sprites[directions.right] = new Sprite([{ x: 0, y: 150, w: 30, h: 30 }]);
     this.sprites[directions.down] = new Sprite([{ x: 0, y: 180, w: 30, h: 30 }]);
     this.sprites[directions.left] = new Sprite([{ x: 0, y: 210, w: 30, h: 30 }]);
-}
+};
+
+// Place & Center player on tile
 Character.prototype.placeAt = function(x, y) {
     this.tileFrom = [x, y];
     this.tileTo = [x, y];
     this.position = [((tileW * x) + ((tileW - this.dimensions[0]) / 2)),
         ((tileH * y) + ((tileH - this.dimensions[1]) / 2))];
 };
+
+// Movement Logic Processing
 Character.prototype.processMovement = function(t) {
     if (this.tileFrom[0] == this.tileTo[0] && this.tileFrom[1] == this.tileTo[1]) { return false; }
 
-    var moveSpeed = this.delayMove[tileTypes[mapTileData.map[toIndex(this.tileFrom[0], this.tileFrom[1])].type].floor];
+    let moveSpeed = this.delayMove[tileTypes[mapTileData.map[toIndex(this.tileFrom[0], this.tileFrom[1])].type].floor];
 
     if ((t - this.timeMoved) >= moveSpeed) {
         this.placeAt(this.tileTo[0], this.tileTo[1]);
@@ -533,11 +610,11 @@ Character.prototype.processMovement = function(t) {
         this.position[1] = (this.tileFrom[1] * tileH) + ((tileH - this.dimensions[1]) / 2);
 
         if (this.tileTo[0] != this.tileFrom[0]) {
-            var diff = (tileW / moveSpeed) * (t - this.timeMoved);
+            let diff = (tileW / moveSpeed) * (t - this.timeMoved);
             this.position[0] += (this.tileTo[0] < this.tileFrom[0] ? 0 - diff : diff);
         }
         if (this.tileTo[1] != this.tileFrom[1]) {
-            var diff = (tileH / moveSpeed) * (t - this.timeMoved);
+            let diff = (tileH / moveSpeed) * (t - this.timeMoved);
             this.position[1] += (this.tileTo[1] < this.tileFrom[1] ? 0 - diff : diff);
         }
 
@@ -547,17 +624,21 @@ Character.prototype.processMovement = function(t) {
 
     return true;
 };
+
+// Checks if a tile can be moved to 
 Character.prototype.canMoveTo = function(x, y) {
     if (x < 0 || x >= mapW || y < 0 || y >= mapH) { return false; }
     if (typeof this.delayMove[tileTypes[mapTileData.map[toIndex(x, y)].type].floor] == 'undefined') { return false; }
     if (mapTileData.map[toIndex(x, y)].object != null) {
-        var o = mapTileData.map[toIndex(x, y)].object;
+        let o = mapTileData.map[toIndex(x, y)].object;
         if (objectTypes[o.type].collision == objectCollision.solid) {
             return false;
         }
     }
     return true;
 };
+
+// Calls to check if a tile can be moved to based on direction the player is trying to move
 Character.prototype.canMoveUp = function() { return this.canMoveTo(this.tileFrom[0], this.tileFrom[1] - 1); };
 Character.prototype.canMoveDown = function() { return this.canMoveTo(this.tileFrom[0], this.tileFrom[1] + 1); };
 Character.prototype.canMoveLeft = function() { return this.canMoveTo(this.tileFrom[0] - 1, this.tileFrom[1]); };
@@ -575,6 +656,7 @@ Character.prototype.canMoveDirection = function(d) {
     }
 };
 
+// Move the player the specified direction
 Character.prototype.moveLeft = function(t) { this.tileTo[0] -= 1; this.timeMoved = t; this.direction = directions.left; };
 Character.prototype.moveRight = function(t) { this.tileTo[0] += 1; this.timeMoved = t; this.direction = directions.right; };
 Character.prototype.moveUp = function(t) { this.tileTo[1] -= 1; this.timeMoved = t; this.direction = directions.up; };

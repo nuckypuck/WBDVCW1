@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../CSS/main/menu.css">
+    <link rel="stylesheet" href="../CSS/main.css">
     <script src="../JS/game.js"></script>
-    <title>Home</title>
+    <title>MAYZ</title>
 </head>
 <body>
+    <!--  NavBar -->
     <nav>
         <input type="checkbox" id="sidebar-active">
         <label for="sidebar-active" class="open-sidebar-button">
@@ -20,7 +21,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#000000"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
             </label>
 
-            <a class="home-link" href="menu.html">Home</a>
+            <a class="home-link" href="menu.html">Game</a>
             <a href="about.html">About</a>
             <a href="leaderboard.html">Leaderboards</a>
             <a href="profile.html">Profile</a>
@@ -28,7 +29,9 @@
     </nav>
 
     <main>
-        <canvas id="game" width="400" height="400"></canvas>
+        <!-- Game -->
+        <canvas id="game" width="400    " height="400"></canvas>
+        <!-- Controls -->
         <div class="controls-container">
         <h2>Controls</h2>
         <ul>
@@ -42,4 +45,3 @@
     </main>
 </body>
 </html>
-
