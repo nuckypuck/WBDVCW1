@@ -1,0 +1,264 @@
+@import url('https://fonts.googleapis.com/css2?family=Sometype+Mono:ital,wght@0,400..700;1,400..700&display=swap');
+
+/* COLOR PALETTE VARIABLES */
+:root {
+    --accent-color: #8a817c;
+    --base-color: #f4f3ee;
+    --basedark-color: #242424;
+    --text-color: #463f3a;
+    --input-color: #f4f3ee;
+}
+
+/* CSS RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* MAIN STYLING */
+html {
+    font-size: 1.2rem;
+    font-family: "Sometype Mono", 'Courier New', Courier, monospace;
+    background-color: var(--basedark-color);
+    color: var(--base-color);
+}
+
+.backgroundimg {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    z-index: -1;
+}
+
+/* BACKGROUND PATTERN */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: repeating-linear-gradient(90deg, transparent 0px, transparent 20px, var(--text-color) 20px, var(--text-color) 40px), repeating-linear-gradient(0deg, transparent 0px, transparent 20px, var(--text-color) 20px, var(--text-color) 40px);
+    opacity: 0.1;
+}
+
+
+/* NAVBAR */
+nav {
+    height: 60px;
+    background-color: var(--basedark-color);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+nav a {
+    height: 100%;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--base-color);
+    transition: 300ms ease;
+}
+
+nav a:hover {
+    background-color: var(--accent-color);
+}
+
+nav .home-link {
+    margin-right: auto;
+}
+
+nav svg {
+    fill: var(--base-color);
+}
+
+/* SIDEBAR */
+.links-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#sidebar-active {
+    display: none;
+}
+
+.open-sidebar-button, .close-sidebar-button {
+    display: none;
+}
+
+/* PROFILE CARD */
+.profile-container {
+    max-width: 600px;
+    margin: 80px auto;
+    padding: 40px;
+    border: 2px solid var(--accent-color);
+    border-radius: 8px;
+    background-color: var(--basedark-color);
+    color: var(--base-color);
+    box-shadow: 0px 0px 10px var(--accent-color);
+    text-align: center;
+}
+
+.profile-container h1 {
+    font-size: 36px;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+}
+
+.maze-scores {
+    margin-top: 20px;
+}
+
+.maze-score-item {
+    margin-bottom: 10px;
+    background-color: var(--base-color);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 4px;
+}
+
+/* LEADERBOARD */
+.leaderboard-container {
+    max-width: 800px;
+    margin: 80px auto;
+    padding: 40px;
+    background-color: var(--basedark-color);
+    border: 2px solid var(--accent-color);
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px var(--accent-color);
+    text-align: center;
+}
+
+.leaderboard h2 {
+    margin-top: 20px;
+    color: var(--accent-color);
+    font-size: 36px;
+}
+
+.leaderboard ul {
+    list-style: none;
+    padding: 0;
+    color: var(--base-color);
+}
+
+.leaderboard li {
+    margin: 5px 0;
+    padding: 10px;
+    background-color: var(--base-color);
+    color: var(--text-color);
+    border-radius: 4px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* ABOUT SECTION */
+.about-section {
+    text-align: center;
+    margin-top: 50px;
+    padding: 50px;
+    background-color: var(--basedark-color);
+    border: 2px solid var(--accent-color);
+    box-shadow: 0px 0px 10px var(--accent-color);
+    border-radius: 8px;
+    max-width: 800px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.about-section h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: var(--accent-color);
+}
+
+.about-section p {
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--base-color);
+}
+
+/* GAME */
+#game {
+    display: block;
+    margin: 50px auto;
+    border: 10px solid #242424;
+    outline: 2px solid var(--base-color);
+    width: 400px;
+    height: 400px;
+}
+
+/* CONTROLS */
+.controls-container {
+    margin: 20px auto; /* Centers horizontally */
+    padding: 15px;
+    border: 2px solid var(--accent-color);
+    background-color: var(--basedark-color);
+    color: var(--base-color);
+    text-align: center;
+    width: 250px;
+}
+
+.controls-container h2 {
+    margin: 0;
+    padding-bottom: 10px;
+    font-size: 24px;
+    color: var(--accent-color);
+}
+
+.controls-container ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.controls-container ul li {
+    padding: 5px 0;
+}
+
+/* MEDIA QUERIES */
+@media(max-width: 450px) {
+    .links-container {
+        flex-direction: column;
+        align-items: flex-start;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        z-index: 10;
+        width: 300px;
+        background-color: var(--basedark-color);
+        box-shadow: -5px 0 5px rgba(0, 0, 0, 0.25);
+        transition: 1s ease-in-out;
+    }
+
+    nav a {
+        box-sizing: border-box;
+        height: auto;
+        width: 100%;
+        padding: 20px 30px;
+        justify-content: flex-start;
+    }
+
+    .open-sidebar-button, .close-sidebar-button {
+        padding: 20px;
+        display: block;
+    }
+
+    #sidebar-active:checked ~ .links-container {
+        right: 0;
+    }
+
+    #sidebar-active:checked ~ #overlay {
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9;
+    }
+}

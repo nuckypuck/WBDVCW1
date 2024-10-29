@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Sometype+Mono:ital,wght@0,400..700;1,400..700&display=swap');
+
+/* COLOR PALETTE VARIABLES */
+:root {
+    --accent-color: #8a817c;
+    --base-color: #f4f3ee;
+    --text-color: #463f3a;
+    --input-color: #f4f3ee;
+}
+
+/* CSS RESET */
+*{
+    margin: 0;
+    padding: 0;
+}
+
+/* BACKGROUND IMAGE STYLING */
+ .backgroundimg {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    z-index: -1;
+} 
+
+/* FONT STYLING  */
+html {
+    font-family: "Sometype Mono", 'Courier New', Courier, monospace;
+    font-size: 1.2rem;
+    color: var(--text-color);
+}
+
+/* REGISTRATION FORM  */
+.wrapper {
+    box-sizing: border-box;
+    height: 100vh;
+    width: max(40%, 600px);
+    background-image: linear-gradient(#242424, #2b2b29);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* REGISTRATION FORM TITLE */
+h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--base-color);
+}
+
+/* FORM STYLING */
+form {
+    width: min(400px, 100%);
+    margin: 20px 0 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* FORM INPUT BOX STYLING */
+form > div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+form label {
+    flex-shrink: 0;
+    height: 50px;
+    width: 50px;
+    background-color: var(--accent-color);
+    color: var(--base-color);
+    border-radius: 10px 0 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+form input {
+    box-sizing: border-box;
+    flex-grow: 1;
+    height: 50px;
+    padding: 1em;
+    font: inherit;
+    border-radius: 0 10px 10px 0;
+    border: 2px solid var(--input-color);
+    border-left: none;
+    background-color: var(--input-color);
+    transition: 150ms ease;
+}
+
+/* NUMBER INPUT STYLING */
+/* Removes click counter */
+#number-input::-webkit-outer-spin-button,
+#number-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+/* FORM INPUT INTERACTIONS */
+form input:hover {
+    border-color: var(--accent-color);
+}
+
+form input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+div:has(input:focus) > label {
+    background-color: var(--text-color);
+}
+
+form input::placeholder {
+    color: var(--text-color);
+}
+
+/* PASSWORD SHOW STYLING */
+.showPass {
+    padding: 0px 20px 0px 20px;
+    accent-color: var(--accent-color);
+    transform: scale(2);
+}
+
+/* FORM BUTTON STYLING & INTERACTIONS */
+form button {
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    padding: .85em 4em;
+    background-color: var(--accent-color);
+    color: var(--base-color);
+    font: inherit;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 150ms ease;
+}
+
+form button:hover {
+    background-color: var(--text-color);
+}
+
+form button:focus {
+    outline: none;
+    background-color: var(--text-color);
+}
+
+/* LINK STYLING & INTERACTIONS */
+a {
+    text-decoration: none;
+    color: var(--accent-color);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* MEDIA QUERY FOR OTHER DEVICES */
+@media(max-width: 1100px) {
+    .container {
+        width: min(600px, 100%);
+        border-radius: 0;
+    }
+}
+
+/* INCORRECT CLASS STYLING*/
+form div.incorrect label { 
+    background-color: #c90f47f3;
+}
+
+form div.incorrect input {
+    border-color: #c90f47f3;
+}
+
+/* ERROR MESSAGE STYLING */
+
+#error-message {
+    font-weight: bolder;
+    justify-content: center;
+    text-align: left;
+    padding: 10px 10px 10px 10px;
+    border: 5px solid var(--accent-color);
+    border-radius: 10px;
+}
+
+/* ERROR MESSAGE & SMALLPRINT STYLING */
+.wrapper p {
+    color: var(--base-color);
+}
