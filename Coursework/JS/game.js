@@ -6,15 +6,15 @@ const mazes = [
         map: [
             // Maze 1 layout
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0,
-            0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0,
-            0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 0,
+            0, 2, 2, 2, 0, 2, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0,
+            0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0,
+            0, 2, 2, 2, 0, 2, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 0,
             0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0,
-            0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 2, 2, 2, 0, 2, 0, 2, 0,
+            0, 2, 0, 2, 2, 2, 0, 2, 2, 2, 0, 2, 2, 2, 2, 0, 2, 0, 2, 0,
             0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 2, 0, 2, 0, 2, 0,
-            0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 2, 0, 2, 0, 2, 0,
-            0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 0,
+            0, 2, 0, 2, 2, 2, 0, 2, 0, 2, 0, 2, 0, 2, 2, 0, 2, 0, 2, 0,
+            0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 5, 2, 3, 0,
             0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 2, 2, 0, 2, 0, 0, 2, 0, 2, 0,
             0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 2, 0, 2, 0,
             0, 2, 0, 2, 0, 2, 0, 2, 2, 2, 2, 2, 0, 2, 0, 0, 2, 0, 2, 0,
@@ -33,14 +33,14 @@ const mazes = [
         map: [
             // Maze 2 layout
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 0, 
+            0, 2, 2, 2, 2, 2, 2, 2, 5, 5, 2, 2, 2, 2, 2, 2, 2, 2, 3, 0, 
             0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0,
-            0, 2, 2, 2, 2, 2, 2, 2, 0, 2, 0, 2, 0, 2, 2, 2, 2, 0, 2, 0,
-            0, 2, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 2, 0, 2, 0,
-            0, 2, 0, 2, 2, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 2, 0, 2, 0,
-            0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 0, 0, 2, 0,
-            0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 2, 2, 2, 2, 2, 0,
-            0, 2, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 2, 2, 2, 2, 2, 2, 2, 0, 4, 0, 2, 0, 2, 2, 2, 2, 0, 2, 0,
+            0, 2, 0, 0, 0, 0, 0, 2, 0, 4, 0, 2, 0, 2, 0, 0, 2, 0, 2, 0,
+            0, 4, 0, 2, 2, 2, 0, 2, 0, 4, 0, 2, 0, 2, 0, 2, 2, 0, 2, 0,
+            0, 4, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 0, 0, 2, 0,
+            0, 4, 0, 5, 0, 2, 0, 4, 0, 2, 0, 2, 0, 2, 2, 2, 2, 2, 2, 0,
+            0, 2, 0, 5, 0, 0, 0, 4, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 2, 0, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0,
             0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0,
             0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 0,
@@ -60,9 +60,9 @@ const mazes = [
         map: [
             // Maze 3 layout
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0,
-            0, 0, 0, 2, 2, 2, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0,
-            0, 2, 2, 2, 2, 2, 2, 2, 0, 2, 0, 2, 0, 2, 2, 2, 2, 0, 2, 0,
+            0, 2, 2, 2, 2, 4, 2, 2, 5, 2, 2, 2, 4, 4, 4, 2, 2, 2, 2, 0,
+            0, 0, 0, 2, 2, 4, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0,
+            0, 2, 2, 2, 2, 4, 2, 2, 0, 2, 0, 2, 0, 2, 2, 2, 2, 0, 2, 0,
             0, 2, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 2, 0, 2, 0,
             0, 2, 0, 2, 2, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 2, 0, 2, 0,
             0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 0, 0, 2, 0,
@@ -190,7 +190,8 @@ function loadMaze(index) {
     // Retrieve maze data from array
     let maze = mazes[index];
     mapTileData.buildMapFromData(maze.map, mapW, mapH);
-    //Character Position
+
+    // Character Position
     player.placeAt(1, 1);
 
     // Endpoint handler 
@@ -214,45 +215,83 @@ function loadMaze(index) {
         timerStarted = true;
     }
 
-    // Remove restart button (if it exists)
-    const restartButton = document.querySelector('button');
+    // Remove restart button and maze times container (if they exist)
+    const restartButton = document.getElementById('restartButton');
+    const mazeTimesContainer = document.getElementById('mazeTimesContainer');
+
     if (restartButton) {
         restartButton.remove();
     }
+    if (mazeTimesContainer) {
+        mazeTimesContainer.remove();
+    }
+
 };
 
 
 function endGame() {
     // Sum Maze Times
     totalTime = mazeTimes.reduce((a, b) => a + b, 0);
-    // Pause game and draw endscreen
     isPaused = true;
-    ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
-    ctx.fillRect(50, 50, viewport.screen[0] - 100, viewport.screen[1] - 100);
-    ctx.fillStyle = "#ffffff";
-    ctx.textAlign = "center";
-    ctx.fillText("Mayz Complete!", viewport.screen[0] / 2, 100);
 
-    // Display maze times on endscreen
+    // Get the canvas element and its container
+    const gameCanvas = document.getElementById('game');
+    const gameContainer = document.querySelector('.game-container');
+
+    // Function to position the maze times container and restart button based on the canvas position
+    function positionEndGameElements() {
+        const canvasRect = gameCanvas.getBoundingClientRect();
+
+        mazeTimesContainer.style.top = `${canvasRect.top + canvasRect.height / 2}px`;
+        mazeTimesContainer.style.left = `${canvasRect.left + canvasRect.width / 2}px`;
+
+        restartButton.style.top = `${canvasRect.top + canvasRect.height / 2 + 100}px`;
+        restartButton.style.left = `${canvasRect.left + canvasRect.width / 2}px`;
+    }
+
+    // Create container for maze times and total time
+    const mazeTimesContainer = document.createElement('div');
+    mazeTimesContainer.id = "mazeTimesContainer";
+    mazeTimesContainer.style.position = "absolute";
+    mazeTimesContainer.style.transform = "translate(-50%, -50%)";
+    mazeTimesContainer.style.backgroundColor = "#333";
+    mazeTimesContainer.style.color = "#ffffff";
+    mazeTimesContainer.style.padding = "20px";
+    mazeTimesContainer.style.borderRadius = "10px";
+    mazeTimesContainer.style.textAlign = "center";
+    mazeTimesContainer.style.boxShadow = "0px 4px 6px rgba(0, 0, 0, 0.3)";
+
+    // Add header
+    const title = document.createElement('h2');
+    title.innerText = "Mayz Complete!";
+    title.style.margin = "0 0 10px";
+    mazeTimesContainer.appendChild(title);
+
+    // Display each maze time
     mazeTimes.forEach((time, i) => {
-        ctx.fillText(`Maze ${i + 1}: ${time.toFixed(2)} seconds`, viewport.screen[0] / 2, 150 + i * 30);
+        const mazeTimeText = document.createElement('p');
+        mazeTimeText.innerText = `Mayz ${i + 1}: ${time.toFixed(2)} seconds`;
+        mazeTimeText.style.margin = "5px 0";
+        mazeTimesContainer.appendChild(mazeTimeText);
     });
 
     // Display total time
-    ctx.fillText("Total Time: " + totalTime.toFixed(2) + " seconds", viewport.screen[0] / 2, 300);
+    const totalTimeText = document.createElement('p');
+    totalTimeText.innerText = `Total Time: ${totalTime.toFixed(2)} seconds`;
+    totalTimeText.style.marginTop = "15px";
+    mazeTimesContainer.appendChild(totalTimeText);
+
+    document.body.appendChild(mazeTimesContainer);
 
     // Create the restart button
     const restartButton = document.createElement('button');
+    restartButton.id = "restartButton"
     restartButton.innerHTML = "Restart";
-
-    // Restart button styling
     restartButton.style.position = "absolute";
-    restartButton.style.top = "350px";
-    restartButton.style.left = "50%";
-    restartButton.style.transform = "translateX(-50%)";
-    restartButton.style.backgroundColor = "#8a817c"; // Accent color
-    restartButton.style.color = "#f4f3ee"; // Text color
-    restartButton.style.border = "2px solid #463f3a"; // Darker text color for the border
+    restartButton.style.transform = "translate(-50%, -50%)";
+    restartButton.style.backgroundColor = "var(--accent-color)";
+    restartButton.style.color = "var(--base-color)";
+    restartButton.style.border = "2px solid var(--text-color)";
     restartButton.style.padding = "10px 20px";
     restartButton.style.fontSize = "16px";
     restartButton.style.borderRadius = "5px";
@@ -261,13 +300,13 @@ function endGame() {
     
     // Button hover effect
     restartButton.addEventListener('mouseover', function() {
-        restartButton.style.backgroundColor = "#f4f3ee"; // Switch to base color
-        restartButton.style.color = "#463f3a"; // Text color on hover
+        restartButton.style.backgroundColor = "var(--base-color)";
+        restartButton.style.color = "var(--text-color)";
     });
 
     restartButton.addEventListener('mouseout', function() {
-        restartButton.style.backgroundColor = "#8a817c"; // Return to accent color
-        restartButton.style.color = "#f4f3ee"; // Return to original text color
+        restartButton.style.backgroundColor = "var(--accent-color)";
+        restartButton.style.color = "var(--base-color)";
     });
 
     // Restart button functionality
@@ -276,14 +315,25 @@ function endGame() {
         mazeTimes = [];
         totalTime = 0;
         loadMaze(mazeIndex);
-        // Remove button
-        document.body.removeChild(restartButton); 
+
+        // Remove button and times container
+        document.body.removeChild(restartButton);
+        document.body.removeChild(mazeTimesContainer);
+
+        // Remove resize event listener
+        window.removeEventListener('resize', positionEndGameElements);
     });
 
     document.body.appendChild(restartButton);
 
+    // Initial positioning and set up the resize listener
+    positionEndGameElements();
+    window.addEventListener('resize', positionEndGameElements);
+
+    // Save the scores after displaying the end game screen
     saveScores();
-};
+}
+
 
 function saveScores() {
     let userEmail = sessionStorage.getItem('userEmail'); 
@@ -443,8 +493,14 @@ const objectCollision = {
     solid: 1
 };
 
-// Object types (Currently none)
-const objectTypes = {};
+// Object types (Only a box, but not currently used in mazes.)
+const objectTypes = {
+    name : "Box",
+	sprite : [{x:40,y:160,w:40,h:40}],
+	offset : [0,0],
+	collision : objectCollision.solid,
+	zIndex : 1
+};
 
 // Object Constructor
 function MapObject(nt) {
@@ -469,23 +525,25 @@ MapObject.prototype.placeAt = function(nx, ny) {
 const floorTypes = {
     solid: 0,
     path: 1,
-    endpoint: 2
+    endpoint: 2,
+    speedboost: 3,
+    slowdown: 4
 };
 
 // Define tile properties 
 const tileTypes = {
     0: { colour: "#685b48", floor: floorTypes.solid, sprite: new Sprite([{ x: 0, y: 0, w: 40, h: 40 }]) },
     2: { colour: "#e8bd7a", floor: floorTypes.path, sprite: new Sprite([{ x: 80, y: 0, w: 40, h: 40 }]) },
-    3: { colour: "#ff0000", floor: floorTypes.endpoint, sprite: new Sprite([{ x: 120, y: 0, w: 40, h: 40 }]) }
+    3: { colour: "#ff0000", floor: floorTypes.endpoint, sprite: new Sprite([{ x: 120, y: 0, w: 40, h: 40 }]) },
+    4: { colour: "#00ff00", floor: floorTypes.speedboost, sprite: new Sprite([{ x: 160, y: 0, w: 40, h: 40 }])  },
+    5: { colour: "#0000ff", floor: floorTypes.slowdown, sprite: new Sprite([{ x: 160, y: 40, w: 40, h: 40 }])}
 };
 
-// Tile Constructor (Including roof tiles, unused currently)
+// Tile Constructor
 function Tile(tx, ty, tt) {
     this.x = tx;
     this.y = ty;
     this.type = tt;
-    this.roof = null;
-    this.roofType = 0;
     this.eventEnter = null;
     this.object = null;
 };
@@ -515,9 +573,6 @@ TileMap.prototype.buildMapFromData = function(d, w, h) {
 
     return true;
 };
-
-// Add roofs to map (unused currently)
-TileMap.prototype.addRoofs = function(roofs) { };
 
 // Initialise Directions the character can move
 const directions = {
@@ -575,6 +630,8 @@ function Character() {
 
     this.delayMove = {};
     this.delayMove[floorTypes.path] = 400;
+    this.delayMove[floorTypes.speedboost] = 200;
+    this.delayMove[floorTypes.slowdown] = 600;
     this.delayMove[floorTypes.endpoint] = 400;
 
     this.direction = directions.up;

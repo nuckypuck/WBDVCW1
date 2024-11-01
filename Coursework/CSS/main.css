@@ -184,32 +184,42 @@ nav svg {
     color: var(--base-color);
 }
 
-/* GAME */
+/* GAME */ 
+.game-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px; 
+    max-width: 90vw;
+    margin: 0 auto;
+    padding-top: 20px;
+    flex-wrap: wrap;
+}
+
 #game {
-    display: block;
-    margin: 50px auto;
     border: 10px solid #242424;
     outline: 2px solid var(--base-color);
-    width: 400px;
-    height: 400px;
+    width: auto; 
+    height: 70vh; 
+    max-width: 800px;
+    max-height: 800px; 
+    aspect-ratio: 1 / 1; 
 }
 
 /* CONTROLS */
 .controls-container {
-    margin: 20px auto; /* Centers horizontally */
+    width: 200px; 
     padding: 15px;
     border: 2px solid var(--accent-color);
     background-color: var(--basedark-color);
     color: var(--base-color);
     text-align: center;
-    width: 250px;
 }
 
 .controls-container h2 {
-    margin: 0;
-    padding-bottom: 10px;
     font-size: 24px;
     color: var(--accent-color);
+    margin-bottom: 10px;
 }
 
 .controls-container ul {
@@ -221,7 +231,28 @@ nav svg {
     padding: 5px 0;
 }
 
+
 /* MEDIA QUERIES */
+/* Media Query for Game */
+@media (max-width: 800px), (max-height: 600px) {
+    #game {
+        width: auto; /* Keep aspect ratio without stretching */
+        height: 400px; /* Minimum height */
+    }
+
+    .controls-container {
+        width: 150px; /* Adjust controls container width for smaller screens */
+    }
+}
+
+/* Hide controls on small screens */
+@media (max-width: 600px) {
+    .controls-container {
+        display: none; 
+    }
+}
+
+/* Media Query for NavBar */
 @media(max-width: 450px) {
     .links-container {
         flex-direction: column;
@@ -235,6 +266,12 @@ nav svg {
         box-shadow: -5px 0 5px rgba(0, 0, 0, 0.25);
         transition: 1s ease-in-out;
     }
+    
+
+
+
+
+
 
     nav a {
         box-sizing: border-box;

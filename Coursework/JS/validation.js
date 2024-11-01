@@ -78,6 +78,14 @@ function getRegisterFormErrors(username, email, password, repeatPassword){
         email_input.parentElement.classList.add('incorrect')
         errors.push('Missing Email')
     }
+    if (phoneNumber === '' || phoneNumber == null) {
+        phone_input.parentElement.classList.add('incorrect')
+        errors.push('Missing Phone Number')
+    }
+    if (phoneNumber.search(phonePattern) < 0){
+        phone_input.parentElement.classList.add('incorrect')
+        errors.push('Phone number format should be 07XXX XXXXXX')
+    }
     if (password === '' || password == null){
         password_input.parentElement.classList.add('incorrect')
         errors.push('Missing Password')
@@ -111,14 +119,6 @@ function getRegisterFormErrors(username, email, password, repeatPassword){
         password_input.parentElement.classList.add('incorrect')
         repeat_password_input.parentElement.classList.add('incorrect')
     }
-    if (phoneNumber === '' || phoneNumber == null) {
-        phone_input.parentElement.classList.add('incorrect')
-        errors.push('Missing Phone Number')
-    }
-    if (phoneNumber.search(phonePattern) < 0){
-        phone_input.parentElement.classList.add('incorrect')
-        errors.push('Phone number format should be 07XXX XXXXXX')
-    }
 
     return errors;
 }
@@ -140,7 +140,7 @@ function getLoginFormErrors(email, password){
 }
 
 /* Incorrect Class Clearer */
-const allInputs = [username_input, email_input, password_input, repeat_password_input].filter(input => input != null)
+const allInputs = [username_input, email_input, phone_input, password_input, repeat_password_input].filter(input => input != null)
 
 allInputs.forEach(input => {
     input.addEventListener('input', () => {
